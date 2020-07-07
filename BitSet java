@@ -1,0 +1,91 @@
+import java.io.*;
+import java.util.*;
+/* Author: An5H :) */
+class fastReader
+{
+    BufferedReader br;
+    StringTokenizer st;
+
+    public fastReader()
+    {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next(){
+
+        while (st == null || !st.hasMoreElements()){
+
+            try{
+                st = new StringTokenizer(br.readLine());
+            }
+
+            catch (IOException e){}
+        }
+        return st.nextToken();
+    }
+
+    int nextInt(){
+        return Integer.parseInt(next());
+    }
+
+    long nextLong(){
+        return Long.parseLong(next());
+    }
+
+    double nextDouble(){
+        return Double.parseDouble(next());
+    }
+
+    String nextLine(){
+        String str = "";
+        try{
+            str = br.readLine();
+        }
+        catch (IOException e){}
+        return str;
+    }
+}
+public class Solution {
+
+    public static void main(String[] args) {
+        fastReader ob = new fastReader();
+
+        int size = ob.nextInt();
+        BitSet bs1 = new BitSet(size);
+        BitSet bs2 = new BitSet(size);
+
+        int queries = ob.nextInt();
+        while(queries-- > 0){
+            String arr[] = ob.nextLine().trim().split("\\s+");
+            String query = arr[0];
+            int val1 = Integer.parseInt(arr[1]);
+            int val2 = Integer.parseInt(arr[2]);
+            new check().compute(bs1, bs2, query, val1, val2); 
+        }
+    }
+}
+class check{
+    void compute(BitSet b1, BitSet b2, String op, int x, int y){
+        if(op.equals("AND")){
+            if(x==1) b1.and(b2);
+            else b2.and(b1);
+        }
+        else if(op.equals("OR")){
+            if(x==1) b1.or(b2);
+            else b2.or(b1);
+        }
+        else if(op.equals("XOR")){
+            if(x==1) b1.xor(b2);
+            else b2.xor(b1);
+        }
+        else if(op.equals("FLIP")){
+            if(x==1) b1.flip(y);
+            else b2.flip(y);
+        }
+        else if(op.equals("SET")){
+            if(x==1) b1.set(y);
+            else b2.set(y);
+        }
+        System.out.println(b1.cardinality()+" "+b2.cardinality());
+    }
+}
