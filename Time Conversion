@@ -1,0 +1,42 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+    static String timeConversion(String s) {
+        StringBuilder sb = new StringBuilder();
+        String parts[] = s.trim().split(":");
+        if(parts[2].substring(2, 4).equals("AM")){
+            if(parts[0].equals("12")){
+                sb.append("00:");
+            }else{
+                sb.append(parts[0]+":");
+            }
+        }else{
+            if(parts[0].equals("12")){
+                sb.append("12:");
+            }else{
+                sb.append((Integer.parseInt(parts[0])+12)+":");
+            }
+        }
+        sb.append(parts[1]+":"+(parts[2].substring(0, 2)));
+        return sb.toString();
+    }
+
+    private static final Scanner scan = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s = scan.nextLine();
+
+        String result = timeConversion(s);
+
+        bw.write(result);
+        bw.newLine();
+
+        bw.close();
+    }
+}
